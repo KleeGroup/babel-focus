@@ -1,0 +1,24 @@
+{
+  "name": "babel-focus",
+  "version": "0.0.0",
+  "description": "Focus config for babel use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KleeGroup/babel-focus.git"
+  },
+  "keywords": [
+    "babel",
+    "react",
+    "focus"
+  ],
+  "author": "focus@kleegroup.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KleeGroup/babel-focus/issues"
+  },
+  "homepage": "https://github.com/KleeGroup/babel-focus#readme"
+}
