@@ -4,7 +4,7 @@
   "description": "Focus config for babel use.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "node scripts/check-install.js"
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,6 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
-    "babel-preset-stage-0": "^6.3.13",
-    "react": "^0.14.6",
-    "webpack": "^1.12.11"
+    "babel-preset-stage-0": "^6.3.13"
   }
 }
