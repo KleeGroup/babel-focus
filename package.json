@@ -1,6 +1,6 @@
 {
   "name": "babel-focus",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Focus config for babel use.",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "react",
     "focus"
   ],
+  "files": [".babelrc", "README.md", "scripts"],
   "author": "focus@kleegroup.com",
   "license": "MIT",
   "bugs": {
