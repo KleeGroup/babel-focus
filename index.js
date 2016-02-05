@@ -1,3 +1,5 @@
+var decoratorLegacyPlugin = require('babel-plugin-transform-decorators-legacy');
+//see https://github.com/babel/babel/commit/b5b7e346a04c99da8793e2c65cc3b3c7c720253d
 module.exports = {
   presets: [
     require('babel-preset-stage-0'),
@@ -6,7 +8,7 @@ module.exports = {
   ],
   plugins: [
     require('babel-plugin-transform-class-properties'),
-    require('babel-plugin-transform-decorators-legacy'),
+    decoratorLegacyPlugin.__esModule ? decoratorLegacyPlugin.default: decoratorLegacyPlugin,
     require('babel-plugin-add-module-exports')
   ],
   env: {
@@ -16,4 +18,4 @@ module.exports = {
       ]
     }
   }
-}
+};
