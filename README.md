@@ -1,6 +1,25 @@
 # babel-preset-focus
 
-> Babel preset for focus plugins.
+> Babel preset for focus plugins
+
+## What's inside ?
+
+```json
+{
+  "presets": ["stage-0", "react", "es2015"],
+  "plugins": [
+    "transform-class-properties",
+    "transform-decorators-legacy",
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    }
+  }
+}
+
+```
 
 ## Install
 
