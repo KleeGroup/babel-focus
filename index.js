@@ -9,7 +9,9 @@ module.exports = {
   plugins: [
     require('babel-plugin-transform-class-properties'),
     decoratorLegacyPlugin.__esModule ? decoratorLegacyPlugin.default: decoratorLegacyPlugin,
-    require('babel-plugin-add-module-exports')
+    require('babel-plugin-add-module-exports'),
+    require('babel-plugin-transform-proto-to-assign'),
+    [require('babel-plugin-transform-es2015-classes'), {loose: true}]
   ],
   env: {
     development: {
