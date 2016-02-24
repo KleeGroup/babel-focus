@@ -10,7 +10,14 @@
   "plugins": [
     "transform-class-properties",
     "transform-decorators-legacy",
-    "add-module-exports"
+    "add-module-exports",
+    "transform-proto-to-assign",
+    [
+      "transform-es2015-classes",
+      {
+        "loose": true
+      }
+    ]
   ],
   "env": {
     "development": {
