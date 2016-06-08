@@ -18,6 +18,9 @@ module.exports = {
       presets: [
         require('babel-preset-react-hmre')
       ]
+    },
+    production: {
+      plugins: ["transform-react-remove-prop-types"]
     }
   }
 };
