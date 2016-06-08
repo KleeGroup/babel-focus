@@ -19,7 +19,8 @@
   "files": [
     "README.md",
     "dist",
-    "index.js"
+    "index.js",
+    "babelify.js"
   ],
   "author": "focus@kleegroup.com",
   "license": "MIT",
