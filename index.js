@@ -1,26 +1,43 @@
-var decoratorLegacyPlugin = require('babel-plugin-transform-decorators-legacy');
-//see https://github.com/babel/babel/commit/b5b7e346a04c99da8793e2c65cc3b3c7c720253d
+
 module.exports = {
-  presets: [
-    require('babel-preset-stage-0'),
-    require('babel-preset-react'),
-    require('babel-preset-es2015')
-  ],
-  plugins: [
-    require('babel-plugin-transform-class-properties'),
-    decoratorLegacyPlugin.__esModule ? decoratorLegacyPlugin.default: decoratorLegacyPlugin,
-    require('babel-plugin-add-module-exports'),
-    require('babel-plugin-transform-proto-to-assign'),
-    [require('babel-plugin-transform-es2015-classes'), {loose: true}]
-  ],
-  env: {
-    development: {
-      presets: [
-        require('babel-preset-react-hmre')
-      ]
-    },
-    production: {
-      plugins: ["transform-react-remove-prop-types"]
+    presets: [
+        // Latest stable ECMAScript features
+        [
+            'babel-preset-env',
+            {
+                targets: {
+                    browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
+                    // // We currently minify with uglify
+                    // // Remove after https://github.com/mishoo/UglifyJS2/issues/448
+                    uglify: true,
+                },
+                // Disable polyfill transforms
+                useBuiltIns: true,
+                // Do not transform modules to CJS
+                modules: false,
+            },
+        ],
+        'babel-preset-react'
+    ],
+    plugins: [
+        'babel-plugin-transform-decorators-legacy',
+        'babel-plugin-transform-class-properties',
+        ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true, }],
+        'babel-plugin-transform-function-bind',
+        ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
+        ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true, }],
+        'babel-plugin-add-module-exports',
+        ['babel-plugin-transform-regenerator', { async: false }],
+        'babel-plugin-syntax-dynamic-import'
+        // 'babel-plugin-transform-proto-to-assign',
+        // ['babel-plugin-transform-es2015-classes', { loose: true }]
+    ],
+    env: {
+        development: {
+            "plugins": ['babel-plugin-transform-react-jsx-source', 'babel-plugin-transform-react-jsx-self', 'react-hot-loader/babel']
+        },
+        production: {
+            plugins: ['transform-react-remove-prop-types']
+        }
     }
-  }
 };
