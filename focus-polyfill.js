@@ -1,0 +1,1 @@
+console.warn("focus polyfill is deprecated. Now babel polyfill is added using webpack focus")
