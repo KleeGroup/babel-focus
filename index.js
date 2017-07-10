@@ -39,7 +39,6 @@ module.exports = {
         'babel-plugin-transform-function-bind',
         ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
         ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true, }],
-        'babel-plugin-add-module-exports',
         ['babel-plugin-transform-regenerator', { async: false }],
         'babel-plugin-syntax-dynamic-import'
         // 'babel-plugin-transform-proto-to-assign',
