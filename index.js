@@ -9,7 +9,7 @@ if (env !== 'development' && env !== 'test' && env !== 'production') {
     );
 }
 
-let browsers = process.env.BROWSERS || "'>1%'|'last 4 versions'|'Firefox ESR'|'not ie < 9'";
+let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
 
 module.exports = {
     presets: [
@@ -34,7 +34,7 @@ module.exports = {
     plugins: [
         'babel-plugin-transform-decorators-legacy',
         'babel-plugin-transform-class-properties',
-        'babel-plugin-lodash'
+        'babel-plugin-lodash',
         ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true, }],
         'babel-plugin-transform-function-bind',
         ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
