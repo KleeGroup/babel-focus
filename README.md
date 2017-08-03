@@ -2,6 +2,10 @@
 
 > Babel preset for focus plugins
 
+[![Dependencies Status](https://david-dm.org/KleeGroup/babel-preset-focus.svg)](https://david-dm.org/KleeGroup/babel-preset-focus)
+[![Dev Dependencies Status](https://david-dm.org/KleeGroup/babel-preset-focus/dev-status.svg)](https://david-dm.org/KleeGroup/babel-preset-focus?type=dev)
+[![Peer Dependencies Status](https://david-dm.org/KleeGroup/babel-preset-focus/peer-status.svg)](https://david-dm.org/KleeGroup/babel-preset-focus?type=peer)
+
 ## What's inside ?
 
 ```json
