@@ -8,6 +8,12 @@ if (env !== 'development' && env !== 'test' && env !== 'production') {
         '.'
     );
 }
+let LEGACY_EXPORTS;
+if (process.env.LEGACY_EXPORTS) {
+    LEGACY_EXPORTS = JSON.parse(process.env.LEGACY_EXPORTS)
+} else {
+    LEGACY_EXPORTS = false;
+}
 
 let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
 
@@ -19,14 +25,13 @@ module.exports = {
             {
                 targets: {
                     browsers: browsers.split('|'),
-                    // // We currently minify with uglify
-                    // // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-                    uglify: false,
                 },
+                // forceAllTransforms: !!process.env.HOT_RELOAD,
+                uglify: !!process.env.HOT_RELOAD || LEGACY_EXPORTS,
                 // Enable polyfill transforms
                 useBuiltIns: true,
                 // Do not transform modules to CJS
-                modules: false,
+                modules: LEGACY_EXPORTS ? 'umd' : false
             },
         ],
         'babel-preset-react'
@@ -46,10 +51,16 @@ module.exports = {
     ],
     env: {
         development: {
-            "plugins": ['babel-plugin-transform-react-jsx-source', 'babel-plugin-transform-react-jsx-self', 'react-hot-loader/babel']
+            plugins: [
+                'babel-plugin-transform-react-jsx-source',
+                'babel-plugin-transform-react-jsx-self',
+                'react-hot-loader/babel'
+            ]
         },
         production: {
-            plugins: ['transform-react-remove-prop-types']
+            plugins: [
+                'transform-react-remove-prop-types'
+            ]
         }
     }
 };
