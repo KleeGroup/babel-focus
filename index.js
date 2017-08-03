@@ -49,7 +49,7 @@ module.exports = {
                 // Enable polyfill transforms
                 useBuiltIns: true,
                 // Do not transform modules to CJS
-                modules: LEGACY_EXPORTS ? 'umd' : false
+                modules: LEGACY_EXPORTS ? 'commonjs' : false
             },
         ],
         'babel-preset-react'
