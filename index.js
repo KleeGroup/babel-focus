@@ -17,6 +17,24 @@ if (process.env.LEGACY_EXPORTS) {
 
 let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
 
+const plugins = [
+    'babel-plugin-transform-decorators-legacy',
+    'babel-plugin-transform-class-properties',
+    'babel-plugin-lodash',
+    ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true, }],
+    'babel-plugin-transform-function-bind',
+    ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
+    ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true, }],
+    ['babel-plugin-transform-regenerator', { async: false }],
+    'babel-plugin-syntax-dynamic-import'
+    // 'babel-plugin-transform-proto-to-assign',
+    // ['babel-plugin-transform-es2015-classes', { loose: true }]
+];
+
+if (LEGACY_EXPORTS) {
+    plugins.push('babel-plugin-add-module-exports');
+}
+
 module.exports = {
     presets: [
         // Latest stable ECMAScript features
@@ -36,19 +54,7 @@ module.exports = {
         ],
         'babel-preset-react'
     ],
-    plugins: [
-        'babel-plugin-transform-decorators-legacy',
-        'babel-plugin-transform-class-properties',
-        'babel-plugin-lodash',
-        ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true, }],
-        'babel-plugin-transform-function-bind',
-        ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
-        ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true, }],
-        ['babel-plugin-transform-regenerator', { async: false }],
-        'babel-plugin-syntax-dynamic-import'
-        // 'babel-plugin-transform-proto-to-assign',
-        // ['babel-plugin-transform-es2015-classes', { loose: true }]
-    ],
+    plugins,
     env: {
         development: {
             plugins: [
