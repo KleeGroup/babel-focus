@@ -21,10 +21,10 @@ const plugins = [
     'babel-plugin-transform-decorators-legacy',
     'babel-plugin-transform-class-properties',
     'babel-plugin-lodash',
-    ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true, }],
+    ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true }],
     'babel-plugin-transform-function-bind',
-    ['babel-plugin-transform-react-jsx', { useBuiltIns: true, }],
-    ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true, }],
+    ['babel-plugin-transform-react-jsx', { useBuiltIns: true }],
+    ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true }],
     ['babel-plugin-transform-regenerator', { async: false }],
     'babel-plugin-syntax-dynamic-import'
     // 'babel-plugin-transform-proto-to-assign',
