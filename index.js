@@ -15,12 +15,19 @@ if (process.env.LEGACY_EXPORTS) {
     LEGACY_EXPORTS = false;
 }
 
+let LEGACY_LODASH;
+if (process.env.LEGACY_LODASH) {
+    LEGACY_LODASH = JSON.parse(process.env.LEGACY_LODASH)
+} else {
+    LEGACY_LODASH = false;
+}
+
+
 let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
 
 const plugins = [
     'babel-plugin-transform-decorators-legacy',
     'babel-plugin-transform-class-properties',
-    'babel-plugin-lodash',
     ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true }],
     'babel-plugin-transform-function-bind',
     ['babel-plugin-transform-react-jsx', { useBuiltIns: true }],
@@ -30,6 +37,10 @@ const plugins = [
     // 'babel-plugin-transform-proto-to-assign',
     // ['babel-plugin-transform-es2015-classes', { loose: true }]
 ];
+
+if (!LEGACY_LODASH) {
+    plugins.push('babel-plugin-lodash');
+}
 
 if (LEGACY_EXPORTS) {
     plugins.push('babel-plugin-add-module-exports');
