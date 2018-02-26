@@ -22,6 +22,12 @@ if (process.env.LEGACY_LODASH) {
     LEGACY_LODASH = false;
 }
 
+let DROP_CONSOLE;
+if (process.env.DROP_CONSOLE) {
+    DROP_CONSOLE = JSON.parse(process.env.DROP_CONSOLE)
+} else {
+    DROP_CONSOLE = false;
+}
 
 let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
 
@@ -75,6 +81,14 @@ module.exports = {
             ]
         },
         production: {
+            presets: [
+                [
+                    'babel-preset-minify', {
+                        removeConsole: DROP_CONSOLE,
+                        removeDebugger: false
+                    }
+                ]
+            ],
             plugins: [
                 'transform-react-remove-prop-types'
             ]
