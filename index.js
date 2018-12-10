@@ -11,9 +11,9 @@ module.exports = (api, _options, _dirname) => {
                 "."
         );
     }
-    const development = mode === "development";
-    const test = mode === "test";
-    const production = mode === "production";
+    const development = env === "development";
+    const test = env === "test";
+    const production = env === "production";
     const browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
     const LEGACY_EXPORTS = process.env.LEGACY_EXPORTS ? JSON.parse(process.env.LEGACY_EXPORTS) : false;
     const LEGACY_LODASH = process.env.LEGACY_LODASH ? JSON.parse(process.env.LEGACY_LODASH) : false;
@@ -45,12 +45,10 @@ module.exports = (api, _options, _dirname) => {
             ["@babel/plugin-proposal-object-rest-spread", { useBuiltIns: true }],
             ["@babel/plugin-proposal-optional-chaining"]["@babel/plugin-proposal-nullish-coalescing-operator"],
             !test && [
-                "@babel-plugin-transform-runtime", // https://babeljs.io/docs/en/next/babel-plugin-transform-runtime
+                "@babel/plugin-transform-runtime", // https://babeljs.io/docs/en/next/babel-plugin-transform-runtime
                 {
                     helper: true,
-                    polyfill: false,
                     regenerator: false,
-                    useBuiltIns: true,
                     useESModules: true
                 }
             ],

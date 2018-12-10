@@ -1,6 +1,6 @@
 {
     "name": "babel-preset-focus",
-    "version": "2.0.0-alpha1",
+    "version": "2.0.0-alpha3",
     "description": "Focus config for babel use.",
     "scripts": {
         "release": "npm publish --access public",
