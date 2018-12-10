@@ -2,6 +2,11 @@
     "name": "babel-preset-focus",
     "version": "2.0.0-alpha1",
     "description": "Focus config for babel use.",
+    "scripts": {
+        "release": "npm publish --access public",
+        "release-alpha": "npm publish --tag alpha --access public",
+        "release-beta": "npm publish --tag beta --access public"
+    },
     "main": "index.js",
     "repository": {
         "type": "git",
