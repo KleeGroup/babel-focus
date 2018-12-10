@@ -1,83 +1,71 @@
-let env = process.env.BABEL_ENV || process.env.NODE_ENV;
-if (env !== 'development' && env !== 'test' && env !== 'production') {
-    throw new Error(
-        'Using `focus-preset-babel` requires that you specify `NODE_ENV` or ' +
-        '`BABEL_ENV` environment variables. Valid values are "development" ' +
-        '"test", and "production". Instead, received: ' +
-        JSON.stringify(env) +
-        '.'
-    );
-}
-let LEGACY_EXPORTS;
-if (process.env.LEGACY_EXPORTS) {
-    LEGACY_EXPORTS = JSON.parse(process.env.LEGACY_EXPORTS)
-} else {
-    LEGACY_EXPORTS = false;
-}
+module.exports = (api, _options, _dirname) => {
+    api.assertVersion(7);
 
-let LEGACY_LODASH;
-if (process.env.LEGACY_LODASH) {
-    LEGACY_LODASH = JSON.parse(process.env.LEGACY_LODASH)
-} else {
-    LEGACY_LODASH = false;
-}
-
-
-let browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
-
-const plugins = [
-    'babel-plugin-transform-decorators-legacy',
-    'babel-plugin-transform-class-properties',
-    ['babel-plugin-transform-object-rest-spread', { useBuiltIns: true }],
-    'babel-plugin-transform-function-bind',
-    ['babel-plugin-transform-react-jsx', { useBuiltIns: true }],
-    ['babel-plugin-transform-runtime', { helpers: false, polyfill: false, regenerator: true }],
-    ['babel-plugin-transform-regenerator', { async: false }],
-    'babel-plugin-syntax-dynamic-import'
-    // 'babel-plugin-transform-proto-to-assign',
-    // ['babel-plugin-transform-es2015-classes', { loose: true }]
-];
-
-if (!LEGACY_LODASH) {
-    plugins.push('babel-plugin-lodash');
-}
-
-if (LEGACY_EXPORTS) {
-    plugins.push('babel-plugin-add-module-exports');
-}
-
-module.exports = {
-    presets: [
-        // Latest stable ECMAScript features
-        [
-            'babel-preset-env',
-            {
-                targets: {
-                    browsers: browsers.split('|'),
-                },
-                // forceAllTransforms: !!process.env.HOT_RELOAD,
-                uglify: !!process.env.HOT_RELOAD || LEGACY_EXPORTS,
-                // Enable polyfill transforms
-                useBuiltIns: true,
-                // Do not transform modules to CJS
-                modules: LEGACY_EXPORTS ? 'commonjs' : false
-            },
-        ],
-        'babel-preset-react'
-    ],
-    plugins,
-    env: {
-        development: {
-            plugins: [
-                'babel-plugin-transform-react-jsx-source',
-                'babel-plugin-transform-react-jsx-self',
-                'react-hot-loader/babel'
-            ]
-        },
-        production: {
-            plugins: [
-                'transform-react-remove-prop-types'
-            ]
-        }
+    const env = process.env.BABEL_ENV || process.env.NODE_ENV;
+    if (!["development", "test", "production"].includes(env)) {
+        throw new Error(
+            "Using `focus-preset-babel` requires that you specify `NODE_ENV` or " +
+                '`BABEL_ENV` environment variables. Valid values are "development" ' +
+                '"test", and "production". Instead, received: ' +
+                JSON.stringify(env) +
+                "."
+        );
     }
+    const development = mode === "development";
+    const test = mode === "test";
+    const production = mode === "production";
+    const browsers = process.env.BROWSERS || ">1%|last 4 versions|Firefox ESR|not ie < 9";
+    const LEGACY_EXPORTS = process.env.LEGACY_EXPORTS ? JSON.parse(process.env.LEGACY_EXPORTS) : false;
+    const LEGACY_LODASH = process.env.LEGACY_LODASH ? JSON.parse(process.env.LEGACY_LODASH) : false;
+
+    return {
+        presets: [
+            [
+                "@babel/preset-env",
+                {
+                    useBuiltIns: "entry",
+                    modules: test || LEGACY_EXPORTS ? "commonjs" : false,
+                    targets: {
+                        browsers: browsers.split("|")
+                    }
+                }
+            ],
+            [
+                "@babel/preset-react",
+                {
+                    useBuiltIns: true,
+                    development: development || test
+                }
+            ]
+        ].filter(Boolean),
+        plugins: [
+            ["@babel/plugin-proposal-decorators", { legacy: true }], // https://babeljs.io/docs/en/next/babel-plugin-proposal-decorators
+            ["@babel/plugin-proposal-class-properties", { loose: true }],
+            ["@babel/plugin-proposal-function-bind"],
+            ["@babel/plugin-proposal-object-rest-spread", { useBuiltIns: true }],
+            ["@babel/plugin-proposal-optional-chaining"]["@babel/plugin-proposal-nullish-coalescing-operator"],
+            !test && [
+                "@babel-plugin-transform-runtime", // https://babeljs.io/docs/en/next/babel-plugin-transform-runtime
+                {
+                    helper: true,
+                    polyfill: false,
+                    regenerator: false,
+                    useBuiltIns: true,
+                    useESModules: true
+                }
+            ],
+            ["@babel/plugin-syntax-dynamic-import"],
+            !LEGACY_LODASH && ["babel-plugin-lodash"],
+            LEGACY_EXPORTS && ["babel-plugin-add-module-exports"],
+            development && ["react-hot-loader/babel"],
+            production && ["@babel/plugin-transform-react-inline-elements"],
+            production && ["@babel/plugin-transform-react-constant-elements"],
+            production && [
+                "babel-plugin-transform-react-remove-prop-types",
+                {
+                    mode: "remove" // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types#ignorefilenames
+                }
+            ]
+        ].filter(Boolean)
+    };
 };
