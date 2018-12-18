@@ -47,9 +47,10 @@ module.exports = (api, _options, _dirname) => {
             !test && [
                 "@babel/plugin-transform-runtime", // https://babeljs.io/docs/en/next/babel-plugin-transform-runtime
                 {
+                    corejs: false,
                     helper: true,
                     regenerator: false,
-                    useESModules: true
+                    useESModules: false
                 }
             ],
             ["@babel/plugin-syntax-dynamic-import"],
